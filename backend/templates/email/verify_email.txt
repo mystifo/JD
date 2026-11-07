@@ -1,0 +1,10 @@
+Hello,
+
+Someone (hopefully you) started creating a HerSpace account with this address.
+
+Open this link within 24 hours to verify your email:
+{{ verify_url }}
+
+If this wasn't you, you can ignore this message.
+
+— HerSpace

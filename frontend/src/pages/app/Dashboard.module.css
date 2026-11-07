@@ -1,0 +1,73 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.greeting {
+  font-size: var(--text-h1);
+  line-height: var(--text-h1-line);
+}
+
+.date {
+  margin-top: var(--space-1);
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cardTitle {
+  font-size: var(--text-h3);
+  line-height: var(--text-h3-line);
+}
+
+.cardBody {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.cardAction {
+  margin-top: var(--space-2);
+}
+
+.locked {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.lockIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+}
+
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid > :last-child {
+    grid-column: 1 / -1;
+  }
+}

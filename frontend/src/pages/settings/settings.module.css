@@ -1,0 +1,30 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.sectionTitle {
+  font-size: var(--text-h3);
+  line-height: var(--text-h3-line);
+}
+
+.hint {
+  margin-top: var(--space-2);
+  color: var(--text-faint);
+  font-size: var(--text-small);
+}
+
+.appearance {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}

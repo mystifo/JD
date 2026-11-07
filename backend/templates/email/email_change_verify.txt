@@ -1,0 +1,9 @@
+Hello,
+
+Confirm this address as the new email for your HerSpace account by opening the link below within 2 hours:
+
+{{ verify_url }}
+
+Until you confirm, your current email stays in place.
+
+— HerSpace

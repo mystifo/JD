@@ -1,0 +1,84 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.label {
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.required {
+  margin-left: 0.15em;
+  color: var(--danger);
+}
+
+.counter {
+  font-size: var(--text-micro);
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--space-3) var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-input);
+  color: var(--text);
+  font-size: var(--text-body);
+}
+
+.input::placeholder {
+  color: var(--text-faint);
+}
+
+.input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-color: var(--focus);
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+  line-height: var(--text-body-line);
+}
+
+.select {
+  appearance: none;
+  padding-right: var(--space-6);
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.15rem) 1.2rem,
+    calc(100% - 0.85rem) 1.2rem;
+  background-size:
+    0.3rem 0.3rem,
+    0.3rem 0.3rem;
+  background-repeat: no-repeat;
+}
+
+.invalid {
+  border-color: var(--danger);
+}
+
+.hint {
+  font-size: var(--text-small);
+  color: var(--text-faint);
+}
+
+.error {
+  font-size: var(--text-small);
+  color: var(--danger);
+}

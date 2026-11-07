@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A private space for how you actually feel." />
+    <meta name="theme-color" content="#F8F7F4" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>HerSpace</title>
+    <script>
+      // Blocking theme boot so the first paint already matches the preference.
+      // The value is a presentation preference, never private content.
+      (function () {
+        try {
+          var theme = localStorage.getItem("hs-theme") || "system";
+          var dark =
+            theme === "dark" ||
+            (theme === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+          if (localStorage.getItem("hs-reduced-motion") === "true") {
+            document.documentElement.dataset.reducedMotion = "true";
+          }
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

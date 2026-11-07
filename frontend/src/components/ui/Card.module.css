@@ -1,0 +1,23 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+}
+
+.default {
+  background: var(--surface);
+}
+
+.sage {
+  background: var(--surface-sage);
+}
+
+.violet {
+  background: var(--surface-violet);
+}
+
+.alt {
+  background: var(--surface-alt);
+}

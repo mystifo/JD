@@ -1,0 +1,62 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  padding: clamp(var(--space-6), 8vw, var(--space-8)) var(--space-4);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 40rem);
+  text-align: center;
+}
+
+.eyebrow {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-top: var(--space-3);
+  font-size: var(--text-display);
+  line-height: var(--text-display-line);
+  text-wrap: balance;
+}
+
+.lede {
+  margin-top: var(--space-4);
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  text-wrap: balance;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  width: 100%;
+}
+
+.promise {
+  margin-top: var(--space-6);
+  color: var(--text-faint);
+  font-size: var(--text-small);
+}
+
+.promise::before,
+.promise::after {
+  content: " — ";
+}
+
+@media (max-width: 39.99rem) {
+  .actions > * {
+    width: 100%;
+  }
+}

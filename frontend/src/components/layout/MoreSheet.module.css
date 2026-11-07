@@ -1,0 +1,31 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-input);
+  color: var(--text);
+  font-size: var(--text-body);
+  text-align: left;
+  text-decoration: none;
+}
+
+.link:hover {
+  background: var(--surface-alt);
+}
+
+.placeholder {
+  width: 1.25rem;
+  height: 1.25rem;
+}

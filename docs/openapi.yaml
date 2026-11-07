@@ -1,0 +1,1148 @@
+openapi: 3.0.3
+info:
+  title: HerSpace API
+  version: 1.0.0
+  description: Private wellness space API. Session cookie authentication.
+paths:
+  /api/v1/auth/csrf/:
+    get:
+      operationId: auth_csrf_retrieve
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/auth/email-change/:
+    post:
+      operationId: auth_email_change_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailChangeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmailChangeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmailChangeRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailChangeResponse'
+          description: ''
+        '400':
+          description: No response body
+        '409':
+          description: No response body
+  /api/v1/auth/email-change/confirm/:
+    post:
+      operationId: auth_email_change_confirm_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailChanged'
+          description: ''
+        '409':
+          description: No response body
+        '410':
+          description: No response body
+  /api/v1/auth/login/:
+    post:
+      operationId: auth_login_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+        '401':
+          description: Invalid credentials
+        '403':
+          description: Deletion pending
+        '423':
+          description: Account locked
+        '429':
+          description: Rate limited
+  /api/v1/auth/logout/:
+    post:
+      operationId: auth_logout_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/auth/logout-all/:
+    post:
+      operationId: auth_logout_all_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/auth/password-change/:
+    post:
+      operationId: auth_password_change_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordChangeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordChangeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordChangeRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordChanged'
+          description: ''
+        '400':
+          description: No response body
+  /api/v1/auth/password-reset/:
+    post:
+      operationId: auth_password_reset_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequestRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordResetRequestResponse'
+          description: ''
+        '429':
+          description: No response body
+  /api/v1/auth/password-reset/confirm/:
+    post:
+      operationId: auth_password_reset_confirm_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirmRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirmRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirmRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordChanged'
+          description: ''
+        '400':
+          description: No response body
+        '409':
+          description: No response body
+        '410':
+          description: No response body
+  /api/v1/auth/register/:
+    post:
+      operationId: auth_register_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+          description: ''
+        '400':
+          description: Validation failure
+        '429':
+          description: No response body
+        '409':
+          description: No response body
+  /api/v1/auth/session/:
+    get:
+      operationId: auth_session_retrieve
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+          description: ''
+  /api/v1/auth/verify-email/:
+    post:
+      operationId: auth_verify_email_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailVerified'
+          description: ''
+        '409':
+          description: No response body
+        '410':
+          description: No response body
+  /api/v1/auth/verify-email/resend/:
+    post:
+      operationId: auth_verify_email_resend_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sent'
+          description: ''
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sent'
+          description: ''
+  /api/v1/health/:
+    get:
+      operationId: health_retrieve
+      tags:
+      - system
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+          description: ''
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+          description: ''
+  /api/v1/onboarding/complete/:
+    post:
+      operationId: onboarding_complete_create
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OnboardingCompleteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OnboardingCompleteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OnboardingCompleteRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnboardingCompleteResponse'
+          description: ''
+        '400':
+          description: No response body
+  /api/v1/preferences/:
+    get:
+      operationId: preferences_retrieve
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - profile
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preferences'
+          description: ''
+    patch:
+      operationId: preferences_partial_update
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPreferencesRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPreferencesRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPreferencesRequest'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preferences'
+          description: ''
+        '400':
+          description: No response body
+  /api/v1/profile/:
+    get:
+      operationId: profile_retrieve
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - profile
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+    patch:
+      operationId: profile_partial_update
+      description: |-
+        Enforce CSRF on unsafe methods even for anonymous requests.
+
+        DRF's `SessionAuthentication` only checks CSRF once a session exists, so a
+        login or registration POST would otherwise be unprotected. Public token
+        endpoints that the contract exempts set `csrf_protected = False`.
+
+        The check runs in `initial()` so a failure is raised inside `dispatch()`
+        and rendered by DRF's exception handler as the standard error envelope.
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfileUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfileUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfileUpdateRequest'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+        '400':
+          description: No response body
+components:
+  schemas:
+    DismissedSuggestionsEnum:
+      enum:
+      - add_trusted_contact
+      - first_mood_checkin
+      - set_checkin_reminder
+      - write_first_journal_entry
+      - try_calm_space
+      - create_routine
+      type: string
+      description: |-
+        * `add_trusted_contact` - add_trusted_contact
+        * `first_mood_checkin` - first_mood_checkin
+        * `set_checkin_reminder` - set_checkin_reminder
+        * `write_first_journal_entry` - write_first_journal_entry
+        * `try_calm_space` - try_calm_space
+        * `create_routine` - create_routine
+    EmailChangeRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        new_email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        current_password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - current_password
+      - new_email
+    EmailChangeResponse:
+      type: object
+      properties:
+        pending:
+          type: boolean
+        new_email:
+          type: string
+      required:
+      - new_email
+      - pending
+    EmailChanged:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        email_verified:
+          type: boolean
+      required:
+      - email
+      - email_verified
+    EmailVerified:
+      type: object
+      properties:
+        email_verified:
+          type: boolean
+      required:
+      - email_verified
+    Health:
+      type: object
+      properties:
+        status:
+          type: string
+        database:
+          type: string
+        version:
+          type: string
+        time:
+          type: string
+          format: date-time
+      required:
+      - database
+      - status
+    LocaleEnum:
+      enum:
+      - en
+      type: string
+      description: '* `en` - en'
+    LoginRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - email
+      - password
+    OnboardingCompleteRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        privacy_acknowledged:
+          type: boolean
+      required:
+      - privacy_acknowledged
+    OnboardingCompleteResponse:
+      type: object
+      properties:
+        onboarding_completed_at:
+          type: string
+          format: date-time
+      required:
+      - onboarding_completed_at
+    PasswordChangeRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        current_password:
+          type: string
+          writeOnly: true
+          minLength: 1
+        new_password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - current_password
+      - new_password
+    PasswordChanged:
+      type: object
+      properties:
+        password_changed:
+          type: boolean
+      required:
+      - password_changed
+    PasswordResetConfirmRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        token:
+          type: string
+          minLength: 1
+        new_password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - new_password
+      - token
+    PasswordResetRequestRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+      required:
+      - email
+    PasswordResetRequestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    PatchedPreferencesRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        theme:
+          $ref: '#/components/schemas/ThemeEnum'
+        reduced_motion:
+          type: boolean
+        week_starts_on:
+          type: integer
+          maximum: 6
+          minimum: 0
+        time_format:
+          $ref: '#/components/schemas/TimeFormatEnum'
+        date_format:
+          type: string
+          minLength: 1
+          maxLength: 20
+        checkin_reminder_enabled:
+          type: boolean
+        checkin_reminder_time:
+          type: string
+          format: time
+          nullable: true
+        routine_reminders_enabled:
+          type: boolean
+        hydration_reminders_enabled:
+          type: boolean
+        in_app_notifications_enabled:
+          type: boolean
+        email_notifications_enabled:
+          type: boolean
+        support_notifications_enabled:
+          type: boolean
+        quiet_hours_start:
+          type: string
+          format: time
+          nullable: true
+        quiet_hours_end:
+          type: string
+          format: time
+          nullable: true
+        calm_default_duration_seconds:
+          type: integer
+          maximum: 3600
+          minimum: 60
+        calm_sound_enabled:
+          type: boolean
+        dismissed_suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DismissedSuggestionsEnum'
+    PatchedProfileUpdateRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        pronouns:
+          type: string
+          nullable: true
+          maxLength: 40
+        bio:
+          type: string
+          nullable: true
+          maxLength: 280
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        timezone:
+          type: string
+          minLength: 1
+          maxLength: 64
+        locale:
+          $ref: '#/components/schemas/LocaleEnum'
+    Preferences:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        theme:
+          $ref: '#/components/schemas/ThemeEnum'
+        reduced_motion:
+          type: boolean
+        week_starts_on:
+          type: integer
+          maximum: 6
+          minimum: 0
+        time_format:
+          $ref: '#/components/schemas/TimeFormatEnum'
+        date_format:
+          type: string
+          maxLength: 20
+        checkin_reminder_enabled:
+          type: boolean
+        checkin_reminder_time:
+          type: string
+          format: time
+          nullable: true
+        routine_reminders_enabled:
+          type: boolean
+        hydration_reminders_enabled:
+          type: boolean
+        in_app_notifications_enabled:
+          type: boolean
+        email_notifications_enabled:
+          type: boolean
+        support_notifications_enabled:
+          type: boolean
+        quiet_hours_start:
+          type: string
+          format: time
+          nullable: true
+        quiet_hours_end:
+          type: string
+          format: time
+          nullable: true
+        calm_default_duration_seconds:
+          type: integer
+          maximum: 3600
+          minimum: 60
+        calm_sound_enabled:
+          type: boolean
+        dismissed_suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DismissedSuggestionsEnum'
+      required:
+      - calm_default_duration_seconds
+      - date_format
+      - theme
+      - time_format
+      - week_starts_on
+    Profile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        display_name:
+          type: string
+        pronouns:
+          type: string
+          nullable: true
+        bio:
+          type: string
+          nullable: true
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        timezone:
+          type: string
+        locale:
+          type: string
+        email:
+          type: string
+          format: email
+          readOnly: true
+        email_verified:
+          type: boolean
+          readOnly: true
+        onboarding_completed_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - bio
+      - created_at
+      - display_name
+      - email
+      - email_verified
+      - id
+      - locale
+      - pronouns
+      - timezone
+    RegisterRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+        accept_terms:
+          type: boolean
+        accept_privacy:
+          type: boolean
+        timezone:
+          type: string
+          minLength: 1
+          default: UTC
+          maxLength: 64
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 80
+      required:
+      - accept_privacy
+      - accept_terms
+      - email
+      - password
+    RegisterResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        email_verified:
+          type: boolean
+        onboarding_required:
+          type: boolean
+      required:
+      - email
+      - email_verified
+      - id
+      - onboarding_required
+    Sent:
+      type: object
+      properties:
+        sent:
+          type: boolean
+      required:
+      - sent
+    Session:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/SessionUser'
+        onboarding_required:
+          type: boolean
+        deletion_scheduled_for:
+          type: string
+          format: date-time
+          nullable: true
+        preferences:
+          $ref: '#/components/schemas/SessionPreferences'
+      required:
+      - deletion_scheduled_for
+      - onboarding_required
+      - preferences
+      - user
+    SessionPreferences:
+      type: object
+      properties:
+        theme:
+          type: string
+        reduced_motion:
+          type: boolean
+      required:
+      - reduced_motion
+      - theme
+    SessionUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        display_name:
+          type: string
+        email_verified:
+          type: boolean
+        timezone:
+          type: string
+      required:
+      - display_name
+      - email
+      - email_verified
+      - id
+      - timezone
+    ThemeEnum:
+      enum:
+      - system
+      - light
+      - dark
+      type: string
+      description: |-
+        * `system` - system
+        * `light` - light
+        * `dark` - dark
+    TimeFormatEnum:
+      enum:
+      - '12'
+      - '24'
+      type: string
+      description: |-
+        * `12` - 12
+        * `24` - 24
+    TokenRequest:
+      type: object
+      description: |-
+        Reject unknown body fields (api-documentation.md §1.1).
+
+        DRF silently ignores extra keys by default, which hides client bugs and
+        makes typo'd consent flags look accepted. The API contract is a 400 with
+        code `unknown_field`.
+      properties:
+        token:
+          type: string
+          minLength: 1
+      required:
+      - token
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

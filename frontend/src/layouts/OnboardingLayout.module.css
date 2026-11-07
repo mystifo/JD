@@ -1,0 +1,68 @@
+.page {
+  min-height: 100vh;
+  padding: var(--space-6) var(--space-4) var(--space-8);
+  background:
+    radial-gradient(circle at 20% 0%, var(--surface-sage), transparent 38rem),
+    var(--bg);
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: min(100%, 35rem);
+  margin-inline: auto;
+}
+
+.brand {
+  align-self: flex-start;
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.stepText {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.dots {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dot,
+.dotActive {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.dot {
+  background: var(--border);
+}
+
+.dotActive {
+  background: var(--accent);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}

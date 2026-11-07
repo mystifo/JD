@@ -1,0 +1,48 @@
+.shell {
+  min-height: 100vh;
+}
+
+.skipLink {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-input);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-200%);
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+}
+
+.main {
+  padding: var(--space-5) var(--space-4) calc(var(--space-8) + 4.5rem);
+}
+
+.main:focus {
+  outline: none;
+}
+
+@media (min-width: 40rem) {
+  .main {
+    margin-left: var(--rail-width);
+    padding-bottom: var(--space-8);
+  }
+}
+
+@media (min-width: 64rem) {
+  .main {
+    margin-left: var(--sidebar-width);
+    padding: var(--space-6) var(--space-6) var(--space-8);
+  }
+
+  .inner {
+    max-width: var(--content-max);
+    margin-inline: auto;
+  }
+}
